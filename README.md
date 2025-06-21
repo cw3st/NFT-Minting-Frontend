@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NFT Minting Frontend
 
-## Getting Started
+Welcome! This project is a web application that lets you create ("mint") and view NFTs (Non-Fungible Tokens) on the blockchain. It is built using [Next.js](https://nextjs.org), a popular React framework, and is designed to be easy to use for everyone, whether you're a developer or not.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## What Does This App Do?
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Connect your crypto wallet** (like MetaMask)
+- **Mint (create) your own NFT** by providing a name, description, and image
+- **View your NFT collection** in a personal gallery
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## How Does It Work? (Simple Explanation)
 
-## Learn More
+1. **Connect Wallet:**  
+   Click "Connect Wallet" to link your crypto wallet. This is needed to prove ownership and interact with the blockchain.
 
-To learn more about Next.js, take a look at the following resources:
+2. **Mint an NFT:**  
+   Fill out a form with your NFT's name, description, and image URL. Click "Mint NFT" to create your NFT.  
+   - The app talks to a backend server to store your NFT's details.
+   - Then, it interacts with a smart contract on the blockchain to officially mint your NFT.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **View Your NFTs:**  
+   After minting, your NFTs appear in your gallery. You can see their images, names, and details.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## How to Use (For Everyone)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Install Node.js**  
+   Download and install [Node.js](https://nodejs.org/) if you don't have it.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. **Download the Project**  
+   Get the code from GitHub or your source.
+
+3. **Install Dependencies**  
+   Open a terminal in the project folder and run:
+   ```bash
+   npm install
+   ```
+
+4. **Start the App**  
+   Run:
+   ```bash
+   npm run dev
+   ```
+   Then open [http://localhost:3000](http://localhost:3000) in your browser.
+
+5. **Connect Your Wallet**  
+   Click "Connect Wallet" and follow the instructions.
+
+6. **Mint and View NFTs**  
+   Use the form to mint NFTs and see them in your gallery.
+
+---
+
+## Project Structure (For Developers)
+
+- **`app/`**  
+  Main application code.
+  - **`components/`**: UI parts like Navbar, Mint Widget, NFT Gallery, etc.
+  - **`constants/`**: Contains the smart contract ABI.
+  - **`hooks/`**: Custom React hooks for fetching and minting NFTs.
+  - **`globals.css`**: Global styles.
+  - **`layout.js`**: Main layout and providers.
+  - **`page.js`**: Home page.
+
+- **`public/`**  
+  Static files and images.
+
+- **Config files:**  
+  - **`package.json`**: Project dependencies and scripts.
+  - **`next.config.mjs`**: Next.js configuration.
+  - **`tailwind.config.mjs`**: Tailwind CSS configuration.
+
+---
+
+## How Does Minting Work? (For Developers)
+
+1. **User fills out the mint form** in [`MintWidget`](app/components/mintWidget.jsx).
+2. **A unique token ID is generated** and checked for uniqueness on-chain.
+3. **Metadata is stored** via a backend API (`/nft/store`).
+4. **Smart contract interaction:**  
+   The app calls the `mint` function on the NFT smart contract using the provided ABI ([`contractABI.json`](app/constants/contractABI.json)).
+5. **NFT appears in the gallery** after successful minting.
+
+---
+
+## Technologies Used
+
+- **Next.js**: React framework for server-side rendering and routing.
+- **React**: UI library.
+- **Tailwind CSS**: For styling.
+- **RainbowKit & Wagmi**: For wallet connection and blockchain interactions.
+- **Viem**: For low-level blockchain communication.
+- **Backend API**: Handles NFT metadata storage.
+
+---
+
+## Need Help?
+
+If you get stuck:
+- Make sure your wallet is connected.
+- Check your browser console for errors.
+- Ask a developer for help if you see technical issues.
+
+---
+
+Enjoy minting your NFTs!
