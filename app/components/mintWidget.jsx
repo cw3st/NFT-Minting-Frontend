@@ -10,6 +10,7 @@ import contractABI from "../constants/contractABI.json";
 
 const CONTRACT_ADDRESS = "0x743f49311a82fe72eb474c44e78da2a6e0ae951c";
 const API_BASE_URL = "https://nft-minting-backend-tfa1.onrender.com"; // Replace with actual backend URL
+const MINT_PRICE = BigInt("10000000000000000");
 
 export default function MintWidget() {
   const { address } = useAccount();
@@ -52,9 +53,22 @@ export default function MintWidget() {
     }
     setLoading(true);
     try {
+      // --- Payment Step ---
+      // This pops up the wallet for the user to pay the minting fee.
+      await walletClient.sendTransaction({
+        to: CONTRACT_ADDRESS, // The contract or recipient address
+        value: MINT_PRICE,    // Amount to pay (in wei)
+        account: address,     // User's wallet address
+      });
+
+      // --- Continue with minting after payment ---
+      // Generate a unique token ID for the NFT
       const tokenId = await generateUniqueTokenId();
+
+      // Store NFT metadata on the backend
       const metadataUrl = await storeNFTMetadata(tokenId);
 
+      // Call the smart contract to mint the NFT on-chain
       await writeContract({
         address: CONTRACT_ADDRESS,
         abi: contractABI,

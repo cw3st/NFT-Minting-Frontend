@@ -21,11 +21,6 @@ export default function NFTGallery() {
 
   const fetchNFTs = async () => {
     const jwtToken = localStorage.getItem("jwtToken");
-    if (!jwtToken) {
-      setError("Authentication required. Please log in.");
-      setLoading(false);
-      return;
-    }
 
     try {
       const response = await fetch(`${API_BASE_URL}/nft/user`, {
